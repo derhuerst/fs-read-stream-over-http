@@ -10,7 +10,7 @@ const helloWorld = Buffer.from([
 	0x77, 0x6f, 0x72, 0x6c, 0x64 // 'world'
 ])
 const helloWorldTxt = 'https://raw.githubusercontent.com/derhuerst/fs-read-stream-over-http/master/test/hello-world.txt'
-const helloWorldBin = 'https://raw.githubusercontent.com/derhuerst/fs-read-stream-over-http/master/test/hello-world.bin'
+const helloWorldBin = 'https://raw.githubusercontent.com/derhuerst/fs-read-stream-over-http/master/test/hello-world.jpg'
 
 test('throws on invalid usage', (t) => {
 	t.plan(6)
