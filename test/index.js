@@ -10,6 +10,7 @@ const helloWorld = Buffer.from([
 	0x77, 0x6f, 0x72, 0x6c, 0x64 // 'world'
 ])
 const helloWorldTxt = 'https://raw.githubusercontent.com/derhuerst/fs-read-stream-over-http/master/test/hello-world.txt'
+const helloWorldBin = 'https://raw.githubusercontent.com/derhuerst/fs-read-stream-over-http/master/test/hello-world.bin'
 
 test('throws on invalid usage', (t) => {
 	t.plan(6)
@@ -56,11 +57,11 @@ test('works with `hex` encoding', (t) => {
 })
 
 test('works without encoding', (t) => {
-	const rs = fsCreateReadStream(helloWorldTxt, {encoding: null})
+	const rs = fsCreateReadStream(helloWorldBin, {encoding: null})
 	rs.once('error', t.ifError)
 	rs.pipe(sink())
 	.then((bin) => {
-		console.error('bin', bin)
+		t.ok(Buffer.isBuffer(bin), 'received item is not a Buffer')
 		t.equal(Buffer.compare(bin, helloWorld), 0, 'received buffer is not equal')
 		t.end()
 	})

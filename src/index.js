@@ -1,7 +1,9 @@
 'use strict'
 
 const {PassThrough} = require('stream')
-const {get} = require('http')
+const parseUrl = require('url').parse
+const httpGet = require('http').get
+const httpsGet = require('https').get
 
 const notSupportedErr = what => {
 	return new Error(what + ' is not supported in the browser implementation of `fs.createReadStream`.')
@@ -29,12 +31,18 @@ const fsCreateReadStream = (path, opt) => {
 	if (opt.start) throw notSupportedErr('The `start` option')
 	if (opt.end) throw notSupportedErr('The `end` option')
 
-	const out = new PassThrough()
+	const out = new PassThrough({encoding: opt.encoding})
 	if (opt.encoding) out.setEncoding(opt.encoding)
 
 	// todo: map url
+	const {protocol} = parseUrl(path)
+	const get = protocol === 'http:' ? httpGet : httpsGet
 	get(path, (res) => {
-		res.pipe(out) // todo: propagate errors
+		if (res.statusCode < 200 || res.statusCode >= 300) {
+			out.destroy(new Error(res.statusMessage || 'non-2xx HTTP status code'))
+		} else {
+			res.pipe(out) // todo: propagate errors
+		}
 	})
 
 	return out
