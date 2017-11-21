@@ -1,0 +1,45 @@
+{
+	"name": "fs-read-stream-over-http",
+	"description": "fs.createReadStream via HTTP GET requests.",
+	"version": "0.1.0",
+	"main": "index.js",
+	"module": "src/index.js",
+	"files": [
+		"index.js",
+		"src"
+	],
+	"keywords": [
+		"fs",
+		"createReadStream",
+		"fetch",
+		"ajax",
+		"xhr",
+		"http"
+	],
+	"author": "Jannis R <mail@jannisr.de>",
+	"homepage": "https://github.com/derhuerst/fs-read-stream-over-http",
+	"repository": "derhuerst/fs-read-stream-over-http",
+	"bugs": "https://github.com/derhuerst/fs-read-stream-over-http/issues",
+	"license": "ISC",
+	"engines": {
+		"node": ">=6"
+	},
+	"devDependencies": {
+		"babel-cli": "^6.26.0",
+		"babel-core": "^6.26.0",
+		"babel-preset-env": "^1.6.1",
+		"babelify": "^8.0.0",
+		"browserify": "^14.5.0",
+		"chutney": "^0.2.4",
+		"is-in-browser": "^1.1.3",
+		"tap-spec": "^4.1.1",
+		"tape": "^4.8.0"
+	},
+	"scripts": {
+		"build": "babel src/index.js --presets env --out-file index.js",
+		"node-test": "node test/index.js | tap-spec",
+		"browser-test": "browserify -g [babelify --presets env] test/browser.js | chutney | tap-spec",
+		"test": "npm run node-test && npm run browser-test",
+		"prepublishOnly": "npm test"
+	}
+}
