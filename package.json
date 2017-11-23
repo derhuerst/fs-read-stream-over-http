@@ -38,7 +38,7 @@
 	},
 	"scripts": {
 		"build": "babel src/index.js --presets env --out-file index.js",
-		"node-test": "node test/index.js | tap-spec",
+		"node-test": "node test/node.js | tap-spec",
 		"browser-test": "browserify -g [babelify --presets env] test/browser.js | chutney | tap-spec",
 		"test": "npm run node-test && npm run browser-test",
 		"prepublishOnly": "npm test"
