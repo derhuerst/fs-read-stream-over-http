@@ -1,5 +1,7 @@
 # fs-read-stream-over-http
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/derhuerst/fs-read-stream-over-http.svg)](https://greenkeeper.io/)
+
 **[`fs.createReadStream`](https://nodejs.org/api/fs.html#fs_fs_createreadstream_path_options) via HTTP `GET` requests.** Depends on the [Browserify](http://browserify.org/) [`http` shim](https://github.com/jhiesey/stream-http).
 
 [![npm version](https://img.shields.io/npm/v/fs-read-stream-over-http.svg)](https://www.npmjs.com/package/fs-read-stream-over-http)
