@@ -1,7 +1,7 @@
 {
 	"name": "fs-read-stream-over-http",
-	"description": "fs.createReadStream via HTTP GET requests.",
-	"version": "0.1.0",
+	"description": "Isomorphic fs.createReadStream, works in Node and in the browser.",
+	"version": "0.2.0",
 	"main": "node.js",
 	"browser": "browser.js",
 	"files": [
