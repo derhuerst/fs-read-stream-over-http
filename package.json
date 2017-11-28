@@ -2,10 +2,11 @@
 	"name": "fs-read-stream-over-http",
 	"description": "fs.createReadStream via HTTP GET requests.",
 	"version": "0.1.0",
-	"main": "index.js",
-	"module": "src/index.js",
+	"main": "node.js",
+	"browser": "browser.js",
 	"files": [
-		"index.js",
+		"node.js",
+		"browser.js",
 		"src"
 	],
 	"keywords": [
@@ -37,7 +38,7 @@
 		"tape": "^4.8.0"
 	},
 	"scripts": {
-		"build": "babel src/index.js --presets env --out-file index.js",
+		"build": "babel src --presets env --out-dir .",
 		"node-test": "node test/node.js | tap-spec",
 		"browser-test": "browserify -g [babelify --presets env] test/browser.js | chutney | tap-spec",
 		"test": "npm run node-test && npm run browser-test",
