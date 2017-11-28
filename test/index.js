@@ -4,13 +4,19 @@ const test = require('tape')
 
 const fsCreateReadStream = require('..')
 
-test('throws on invalid usage', (t) => {
-	t.plan(6)
+const noop = () => {}
 
-	t.throws(() => fsCreateReadStream('/foo', {flags: 'w'}))
-	t.throws(() => fsCreateReadStream('/foo', {fd: 1}))
-	t.throws(() => fsCreateReadStream('/foo', {mode: 0o700}))
-	t.throws(() => fsCreateReadStream('/foo', {autoClose: true}))
-	t.throws(() => fsCreateReadStream('/foo', {start: 100}))
-	t.throws(() => fsCreateReadStream('/foo', {end: 100}))
+test('throws on invalid usage', (t) => {
+	t.plan(3 + 6)
+
+	t.throws(() => fsCreateReadStream('/foo', null))
+	t.throws(() => fsCreateReadStream('/foo', '/bar'))
+	t.throws(() => fsCreateReadStream('/foo', true))
+
+	t.throws(() => fsCreateReadStream('/foo', noop, {flags: 'w'}))
+	t.throws(() => fsCreateReadStream('/foo', noop, {fd: 1}))
+	t.throws(() => fsCreateReadStream('/foo', noop, {mode: 0o700}))
+	t.throws(() => fsCreateReadStream('/foo', noop, {autoClose: true}))
+	t.throws(() => fsCreateReadStream('/foo', noop, {start: 100}))
+	t.throws(() => fsCreateReadStream('/foo', noop, {end: 100}))
 })

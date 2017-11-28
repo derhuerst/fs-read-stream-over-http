@@ -9,4 +9,6 @@ pnpm-debug.log
 package-lock.json
 shrinkwrap.yaml
 
-/index.js
+/node.js
+/browser.js
+/validate-opt.js
