@@ -9,7 +9,7 @@ const notSupportedErr = what => {
 	return new Error(what + ' is not supported in the browser implementation of `fs.createReadStream`.')
 }
 
-const fsCreateReadStream = (path, opt) => {
+const fsCreateReadStream = (path, urlToPath, opt) => {
 	// todo: path may also be a `Buffer` or `require('url').URL`
 	if ('string' !== typeof path) throw new Error('path must be a string.')
 
@@ -34,10 +34,10 @@ const fsCreateReadStream = (path, opt) => {
 	const out = new PassThrough({encoding: opt.encoding})
 	if (opt.encoding) out.setEncoding(opt.encoding)
 
-	// todo: map url
-	const {protocol} = parseUrl(path)
+	const url = urlToPath(path)
+	const {protocol} = parseUrl(url)
 	const get = protocol === 'http:' ? httpGet : httpsGet
-	get(path, (res) => {
+	get(url, (res) => {
 		if (res.statusCode < 200 || res.statusCode >= 300) {
 			out.destroy(new Error(res.statusMessage || 'non-2xx HTTP status code'))
 		} else {

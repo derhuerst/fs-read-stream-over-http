@@ -1,15 +1,17 @@
 'use strict'
 
+const path = require('path')
 const test = require('tape')
 const inBrowser = require('is-in-browser').default
 const sink = require('stream-sink')
 
 require('.') // run generic tests
 
-const fsCreateReadStream = require('../src')
+const fsCreateReadStream = require('..')
 
-const textUrl = 'https://httpbin.org/robots.txt'
-const binaryUrl = 'https://httpbin.org/bytes/16'
+const urlToPath = local => 'https://httpbin.org' + path.resolve('/', local)
+const textPath = './robots.txt'
+const binaryPath = './bytes/16'
 
 test('browser: running in the browser', (t) => {
 	t.plan(1)
@@ -17,7 +19,7 @@ test('browser: running in the browser', (t) => {
 })
 
 test('browser: works with text & `utf8` encoding', (t) => {
-	const rs = fsCreateReadStream(textUrl, {encoding: 'utf8'})
+	const rs = fsCreateReadStream(textPath, urlToPath, {encoding: 'utf8'})
 	rs.once('error', t.ifError)
 	rs.pipe(sink())
 	.then((data) => {
@@ -31,7 +33,7 @@ test('browser: works with text & `utf8` encoding', (t) => {
 test('browser: works with binary data & without encoding', (t) => {
 	const chunks = []
 
-	const rs = fsCreateReadStream(binaryUrl, {encoding: null})
+	const rs = fsCreateReadStream(binaryPath, urlToPath, {encoding: null})
 	rs.once('error', t.ifError)
 	rs.on('data', d => chunks.push(d))
 

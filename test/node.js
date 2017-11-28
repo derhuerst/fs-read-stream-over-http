@@ -1,31 +1,24 @@
 'use strict'
 
+const path = require('path')
 const test = require('tape')
 const sink = require('stream-sink')
 
 require('.') // run generic tests
 
-const mockServer = require('./mock-server')
-const fsCreateReadStream = require('../src')
+const fsCreateReadStream = require('..')
 
 const helloWorld = Buffer.from([
 	0x68, 0x65, 0x6c, 0x6c, 0x6f, 0x20, // 'hello '
 	0x77, 0x6f, 0x72, 0x6c, 0x64 // 'world'
 ])
 
-mockServer.listen(3000, (err) => {
-	if (err) {
-		console.error(err)
-		process.exit(1)
-	}
-})
-test.onFinish(() => mockServer.close())
-
-const textUrl = 'http://localhost:3000/text'
-const binaryUrl = 'http://localhost:3000/bin'
+const urlToPath = local => 'some invalid path'
+const textPath = path.join(__dirname, './hello-world.txt')
+const binaryPath = path.join(__dirname, './hello-world.bin')
 
 test('node: works with `utf8` encoding', (t) => {
-	const rs = fsCreateReadStream(textUrl, {encoding: 'utf8'})
+	const rs = fsCreateReadStream(textPath, urlToPath, {encoding: 'utf8'})
 	rs.once('error', t.ifError)
 	rs.pipe(sink())
 	.then((data) => {
@@ -36,7 +29,7 @@ test('node: works with `utf8` encoding', (t) => {
 })
 
 test('node: works with `base64` encoding', (t) => {
-	const rs = fsCreateReadStream(textUrl, {encoding: 'base64'})
+	const rs = fsCreateReadStream(textPath, urlToPath, {encoding: 'base64'})
 	rs.once('error', t.ifError)
 	rs.pipe(sink())
 	.then((b64) => {
@@ -47,7 +40,7 @@ test('node: works with `base64` encoding', (t) => {
 })
 
 test('node: works with `hex` encoding', (t) => {
-	const rs = fsCreateReadStream(textUrl, {encoding: 'hex'})
+	const rs = fsCreateReadStream(textPath, urlToPath, {encoding: 'hex'})
 	rs.once('error', t.ifError)
 	rs.pipe(sink())
 	.then((b64) => {
@@ -60,7 +53,7 @@ test('node: works with `hex` encoding', (t) => {
 test('node: works without encoding', (t) => {
 	const chunks = []
 
-	const rs = fsCreateReadStream(binaryUrl, {encoding: null})
+	const rs = fsCreateReadStream(binaryPath, urlToPath, {encoding: null})
 	rs.once('error', t.ifError)
 	rs.on('data', d => chunks.push(d))
 

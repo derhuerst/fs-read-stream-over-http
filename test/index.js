@@ -2,7 +2,7 @@
 
 const test = require('tape')
 
-const fsCreateReadStream = require('../src')
+const fsCreateReadStream = require('..')
 
 test('throws on invalid usage', (t) => {
 	t.plan(6)
