@@ -39,7 +39,7 @@
 		"tape": "^4.8.0"
 	},
 	"scripts": {
-		"build": "babel src --presets env --out-dir .",
+		"build": "babel src --presets @babel/preset-env --out-dir .",
 		"node-test": "node test/node.js | tap-spec",
 		"browser-test": "browserify -g [ babelify --presets [@babel/preset-env] ] test/browser.js | chutney | tap-spec",
 		"test": "npm run node-test && npm run browser-test",
