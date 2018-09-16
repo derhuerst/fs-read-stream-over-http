@@ -27,9 +27,9 @@
 		"node": ">=6"
 	},
 	"devDependencies": {
-		"babel-cli": "^6.26.0",
-		"babel-core": "^6.26.0",
-		"babel-preset-env": "^1.6.1",
+		"@babel/cli": "^7.0.0",
+		"@babel/core": "^7.0.1",
+		"@babel/preset-env": "^7.0.0",
 		"babelify": "^10.0.0",
 		"browserify": "^16.0.0",
 		"chutney": "^0.2.4",
@@ -41,7 +41,7 @@
 	"scripts": {
 		"build": "babel src --presets env --out-dir .",
 		"node-test": "node test/node.js | tap-spec",
-		"browser-test": "browserify -g [babelify --presets env] test/browser.js | chutney | tap-spec",
+		"browser-test": "browserify -g [ babelify --presets [@babel/preset-env] ] test/browser.js | chutney | tap-spec",
 		"test": "npm run node-test && npm run browser-test",
 		"prepublishOnly": "npm test"
 	}
