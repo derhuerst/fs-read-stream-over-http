@@ -1,5 +1,9 @@
 # fs-read-stream-over-http
 
+**Deprecated in favor of [`stream-http`](https://github.com/jhiesey/stream-http).**
+
+---
+
 **Isomorphic [`fs.createReadStream`](https://nodejs.org/api/fs.html#fs_fs_createreadstream_path_options).** Delegates to core [`fs`](https://nodejs.org/api/fs.html) in Node, uses the [Browserify](http://browserify.org/) [`http` shim](https://github.com/jhiesey/stream-http) in the browser.
 
 [![npm version](https://img.shields.io/npm/v/fs-read-stream-over-http.svg)](https://www.npmjs.com/package/fs-read-stream-over-http)
